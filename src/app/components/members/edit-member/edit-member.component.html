@@ -1,0 +1,43 @@
+<div class="container my-5">
+    <h2 *ngIf="editMode" class="mb-3">Edit Member</h2>
+    <h2 *ngIf="!editMode" class="mb-3">Member Details</h2>
+
+    <form [formGroup]="form" autocomplete="off" (ngSubmit)="updateMember()" >
+        <div class="col-6">
+            <div class="mb-3 form-group">
+                <label class="form-label">ID</label>
+                <input type="text" class="form-control" id="id" placeholder="" name="memberId" readonly formControlName="id">
+            </div>
+            <div class="mb-3 form-group">
+                <label class="form-label">First Name</label>
+                <input type="text" class="form-control" id="firstName" placeholder="Enter First Name" name="firstName" formControlName="firstName">
+            </div>
+            <div class="mb-3 form-group">
+                <label class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name" name="lastName" formControlName="lastName">
+            </div>
+            <div class="col-12 mb-3 form-group">
+                <label class="form-label">Gender</label>
+                <select class="form-select" id="gender" name="gender" formControlName="gender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            <div class="mb-3 form-group">
+                <label class="form-label">Address</label>
+                <input type="text" class="form-control" id="address" placeholder="Enter Address" name="address" formControlName="address">
+            </div>
+            <div class="mb-3 form-group">
+                <label class="form-label">Contact Number</label>
+                <input type="text" class="form-control" id="contactNumber" placeholder="Enter Contact Number" name="contactNumber" formControlName="contactNumber">
+            </div>
+
+            <button *ngIf="editMode" pButton pRipple icon="pi pi-check" class="btn btn-primary" type="submit">Save</button>
+            <button *ngIf="editMode" pButton pRipple icon="pi pi-trash" class="btn btn-danger" type="button" (click)="deleteMember()">Delete</button>
+            <button *ngIf="!editMode" pButton pRipple icon="pi pi-times" class="btn btn-danger" type="button" (click)="edit()">Edit</button>
+            <button *ngIf="editMode" class="btn btn-danger" type="button" (click)="cancel()">Cancel</button>
+            <button *ngIf="!editMode" class="btn btn-danger" type="button" (click)="cancel()">Back</button>
+            
+        </div>
+    </form>
+</div>

@@ -1,0 +1,13 @@
+body{
+    background-color: #edf2f4;
+}
+
+h1{
+    text-align: center;
+    margin-top: 1em;
+    font-size: 5em;
+}
+
+.navbar{
+    background-color:#d90429;
+}
