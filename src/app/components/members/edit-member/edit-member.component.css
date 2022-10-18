@@ -1,0 +1,15 @@
+form button{
+    border: none;
+    padding: 0.5em 2em;
+    margin-right: 0.5em;
+    border-radius: 1.5em;
+    background-color: #ef233c;
+    font-family: sans-serif;
+    font-weight: 400;
+    color: white;
+}
+
+form button:hover{
+    background-color: #920011;
+    color: white;
+}

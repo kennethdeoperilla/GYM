@@ -34,9 +34,13 @@
 
             <button *ngIf="editMode" pButton pRipple icon="pi pi-check" class="btn btn-primary" type="submit">Save</button>
             <button *ngIf="editMode" pButton pRipple icon="pi pi-trash" class="btn btn-danger" type="button" (click)="deleteMember()">Delete</button>
-            <button *ngIf="!editMode" pButton pRipple icon="pi pi-times" class="btn btn-danger" type="button" (click)="edit()">Edit</button>
-            <button *ngIf="editMode" class="btn btn-danger" type="button" (click)="cancel()">Cancel</button>
-            <button *ngIf="!editMode" class="btn btn-danger" type="button" (click)="cancel()">Back</button>
+            <button *ngIf="!editMode" pButton pRipple icon="" class="" type="button" (click)="edit()">Edit</button>
+            <button *ngIf="editMode" class="" type="button" (click)="cancel()">Cancel</button>
+            <button *ngIf="!editMode" class="" type="button" (click)="cancel()">Back</button>
+
+
+            <!-- <button *ngIf="editMode" class="btn btn-danger" type="button" (click)="cancel()">Cancel</button>
+            <button *ngIf="!editMode" class="btn btn-danger" type="button" (click)="cancel()">Back</button> -->
             
         </div>
     </form>

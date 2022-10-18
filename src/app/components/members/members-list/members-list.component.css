@@ -68,12 +68,21 @@ table .heading-right {
     border-bottom-right-radius: 1em;
 }
 
-.cells a{
-    color: black;
+.cells button{
+    border: none;
+    margin-top: 4px;
+    background-color: #ef233bd7;
+    padding: 0.5em 1em;
+    border-radius: 0.8em;
+    transition: 100ms;
+    font-weight: 500;
+    color: #edf2f4;
 }
 
-.cells a:hover{
-    color: #edf2f4;
+.cells button:hover{
+    background-color: white;
+    color: red;
+    /* font-weight: 700; */
 }
 
 
