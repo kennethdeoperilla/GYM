@@ -6,13 +6,11 @@ h2 {
     color: #edf2f4;
 }
 
-
 .membertable {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
     text-align: center;
-    /* margin: 10px; */
     border-radius: 500px;
 }
 
@@ -21,29 +19,54 @@ h2 {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
-    text-align: center;
     padding: 2em;
     border-radius: 1em;
 }
 
-table td{
-    padding: 12px;
-}
-
-
-
-table tr:hover {
-    background-color: #ef233bd7;
+/*Counts*/
+.memcount {
+    background-color: #ef233c;
+    text-align: center;
+    height: 2.5em;
+    line-height: 2.5em;
+    text-align: center;
+    font-weight: 700;
     color: #edf2f4;
-    border-radius: 50px;
-
+    border-radius: 0.5em;
 }
 
+.memcount:nth-child(2) {
+    margin: 0 2em;
+}
+/************************/
+
+
+table td {
+    padding: 1.25em 0;
+}
+
+
+/*Table heading*/
+.membertable .heading th{
+    background-color: #8d99ae88;
+    /* color: #edf2f4; */
+    font-weight: 700;
+}
+
+
+/*Table Cells*/
 tr {
     border: 1px solid #edf2f4;
     border-radius: 10px;
-  }
+}
 
+table .cells:hover {
+    background-color: #d3d4d6;
+    /* background-color: #ef233bd7; */
+    /* color: #edf2f4; */
+    border-radius: 50px;
+}
+/*************************************/
 
 table th {
     /* padding-bottom: 1em; */
@@ -52,57 +75,89 @@ table th {
     background-color: #8d99ae;
 }
 
-/* tr .heading {
-    margin-bottom: 1em;
-    color: #2b2d42;
-} */
-
-table .heading-left {
+/*Table corner curves*/
+/* table .heading-left {
     border-top-left-radius: 1em;
     border-bottom-left-radius: 1em;
-
 }
 
 table .heading-right {
     border-top-right-radius: 1em;
     border-bottom-right-radius: 1em;
+} */
+
+
+/*Gender Dropdown*/
+.cont .dropdown {
+    width: 30%;
+    margin-bottom: 1em;
 }
 
-.cells button{
-    border: none;
-    margin-top: 4px;
-    background-color: #ef233bd7;
-    padding: 0.5em 1em;
-    border-radius: 0.8em;
-    transition: 100ms;
+
+
+/*Blue Button with animation*/
+button {
+    margin: 20px;
+  }
+  .custom-btn {
+    width: 130px;
+    height: 40px;
+    color: #fff;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-family: 'Lato', sans-serif;
     font-weight: 500;
-    color: #edf2f4;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+     box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+     7px 7px 20px 0px rgba(0,0,0,.1),
+     4px 4px 5px 0px rgba(0,0,0,.1);
+    outline: none;
+  }
+
+
+/* View details button */
+.btn-5 {
+  width: 140px;
+  height: 40px;
+  line-height: 42px;
+  padding: 0;
+  border: none;
+  background: rgb(255,27,0);
+background: linear-gradient(0deg, rgba(255,27,0,1) 0%, rgba(251,75,2,1) 100%);
 }
-
-.cells button:hover{
-    background-color: white;
-    color: red;
-    /* font-weight: 700; */
+.btn-5:hover {
+  color: #f0094a;
+  background: transparent;
+   box-shadow:none;
 }
-
-
-
-/* #membertable tr:nth-child(even) {
-    background-color: #f2f2f2;
-} */
-/* 
-#membertable tr {
-    background-color: #ff908d;
+.btn-5:before,
+.btn-5:after{
+  content:'';
+  position:absolute;
+  top:0;
+  right:0;
+  height:2px;
+  width:0;
+  background: #f0094a;
+  box-shadow:
+   -1px -1px 5px 0px #fff,
+   7px 7px 20px 0px #0003,
+   4px 4px 5px 0px #0002;
+  transition:400ms ease all;
 }
-
-#membertable tr:hover {
-    background-color: #ddd;
+.btn-5:after{
+  right:inherit;
+  top:inherit;
+  left:0;
+  bottom:0;
 }
-
-#membertable th {
-    text-align: left;
-    background-color: #ff908d;
-    color: white;
-    text-align: center;
-
-} */
+.btn-5:hover:before,
+.btn-5:hover:after{
+  width:100%;
+  transition:800ms ease all;
+}
+/**********************************/

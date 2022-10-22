@@ -5,11 +5,13 @@
         <div class="col-6">
             <div class="mb-3">
                 <label for="" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="firstName" placeholder="Enter First Name" name="firstName" [(ngModel)]="addMemberRequest.firstName">
+                <input type="text" class="form-control" id="firstName" placeholder="Enter First Name" name="firstName"
+                    [(ngModel)]="addMemberRequest.firstName">
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name" name="lastName" [(ngModel)]="addMemberRequest.lastName">
+                <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name" name="lastName"
+                    [(ngModel)]="addMemberRequest.lastName">
             </div>
             <!-- <div class="mb-3">
                 <label for="formGroupExampleInput2" class="form-label">Gender</label>
@@ -18,21 +20,101 @@
             </div> -->
             <div class="col-12 mb-3">
                 <label for="" class="form-label">Gender</label>
-                <select class="form-select" id="gender" name="gender" [(ngModel)]="addMemberRequest.gender" >
+                <select class="form-select" id="gender" name="gender" [(ngModel)]="addMemberRequest.gender">
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                 </select>
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Address</label>
-                <input type="text" class="form-control" id="address" placeholder="Enter Address" name="address" [(ngModel)]="addMemberRequest.address">
+                <input type="text" class="form-control" id="address" placeholder="Enter Address" name="address"
+                    [(ngModel)]="addMemberRequest.address">
             </div>
             <div class="mb-3">
                 <label for="" class="form-label">Contact Number</label>
-                <input type="text" class="form-control" id="contactNumber" placeholder="Enter Contact Number" name="contactNumber" [(ngModel)]="addMemberRequest.contactNumber">
+                <input type="text" class="form-control" id="contactNumber" placeholder="Enter Contact Number"
+                    name="contactNumber" [(ngModel)]="addMemberRequest.contactNumber">
             </div>
 
-            <button class="btn btn-primary" type="submit">Submit</button>
+            <!-- Membership Validiy -->
+            <div class="row">
+                <div id="date" class="col-4 mb-3">
+                    <label for="" class="form-label">Date</label>
+                    <select class="form-select" id="date" name="date" [(ngModel)]="addMemberRequest.date">
+                        <option value="">Select Date</option>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
+                    </select>
+                </div>
+                <div id="startDate" class="col-4 mb-3">
+                    <label for="" class="form-label">Date</label>
+                    <select class="form-select" id="startMonth" name="startMonth" [(ngModel)]="addMemberRequest.startMonth">
+                        <option value="">Select Month</option>
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                    </select>
+                </div>
+                <div class="col-4 mb-3">
+                    <label for="" class="form-label">End Month</label>
+                    <select class="form-select" id="endMonth    " name="endMonth" [(ngModel)]="addMemberRequest.endMonth">
+                        <option value="">Select Month</option>
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="custom-btn btn-5" type="submit"><span>Submit</span></button>
+            <!-- <button class="btn btn-primary" type="submit">Submit</button> -->
         </div>
     </form>
 </div>

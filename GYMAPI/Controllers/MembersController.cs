@@ -1,4 +1,4 @@
-﻿using GYMAPI.Data;
+using GYMAPI.Data;
 using GYMAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -25,8 +25,6 @@ namespace GYMAPI.Controllers
             var members = await this.memberDbContext.Members.ToListAsync();
             return Ok(members);
 
-            /*var ken = this.memberDbContext.Members.Where(x => x.FirstName.Equals("Kenneth"));
-            return Ok(ken);*/
         }
 
         [HttpPost]
@@ -72,6 +70,11 @@ namespace GYMAPI.Controllers
             member.Gender = updateMemberRequest.Gender;
             member.Address = updateMemberRequest.Address;
             member.ContactNumber = updateMemberRequest.ContactNumber;
+            /*member.Validity = updateMemberRequest.Validity;*/
+            member.Date = updateMemberRequest.Date;
+            member.StartMonth = updateMemberRequest.StartMonth;
+            member.EndMonth = updateMemberRequest.EndMonth;
+          
 
             //Then save 
 

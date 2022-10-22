@@ -21,7 +21,12 @@ export class EditMemberComponent implements OnInit {
     lastName: '',
     gender: '',
     address: '',
-    contactNumber: ''
+    contactNumber: '',
+    validity: '',
+    date: '',
+    startMonth: '',
+    endMonth: '',
+    
   }
 
   get id() { return this.form.get('id'); }
@@ -30,6 +35,10 @@ export class EditMemberComponent implements OnInit {
   get gender() { return this.form.get('gender'); }
   get address() { return this.form.get('address'); }
   get contactNumber() { return this.form.get('contactNumber'); }
+  get validity() { return this.form.get('validity'); }
+  get date() { return this.form.get('date'); }
+  get startMonth() { return this.form.get('startDate'); }
+  get endMonth() { return this.form.get('endDate'); }
 
   constructor(
     private route: ActivatedRoute, 
@@ -48,7 +57,7 @@ export class EditMemberComponent implements OnInit {
             next: (response) => {
               this.memberDetails = response;
               console.log("TOEDIT!");
-              //console.log(response);
+              console.log(response);
               this.form.patchValue(response);
             }
           })
@@ -69,7 +78,11 @@ export class EditMemberComponent implements OnInit {
         lastName: [''],
         gender: [''],
         address: [''],
-        contactNumber: ['']
+        contactNumber: [''],
+        validity: [''],
+        date: [''],
+        startMonth: [''],
+        endMonth: [''],
       })
     }
   }

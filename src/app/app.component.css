@@ -1,13 +1,23 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:700');
+
+
 body{
     background-color: #edf2f4;
+    margin:0px;
+    font-family:'Roboto';
+    text-align:center;
 }
 
 h1{
     text-align: center;
     margin-top: 1em;
     font-size: 5em;
+    font-family: Roboto, sans-serif;
 }
 
 .navbar{
     background-color:#d90429;
 }
+
+
+

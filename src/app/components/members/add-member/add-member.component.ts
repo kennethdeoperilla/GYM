@@ -16,8 +16,11 @@ export class AddMemberComponent implements OnInit {
     lastName: '',
     gender: '',
     address: '',
-    contactNumber: ''
-
+    contactNumber: '',
+    validity: '',
+    date: '',
+    startMonth: '',
+    endMonth: '',
   }
   constructor(private memberService: MembersService, private router:Router) { }
 

@@ -2,19 +2,22 @@
     <h2 *ngIf="editMode" class="mb-3">Edit Member</h2>
     <h2 *ngIf="!editMode" class="mb-3">Member Details</h2>
 
-    <form [formGroup]="form" autocomplete="off" (ngSubmit)="updateMember()" >
+    <form [formGroup]="form" autocomplete="off" (ngSubmit)="updateMember()">
         <div class="col-6">
             <div class="mb-3 form-group">
                 <label class="form-label">ID</label>
-                <input type="text" class="form-control" id="id" placeholder="" name="memberId" readonly formControlName="id">
+                <input type="text" class="form-control" id="id" placeholder="" name="memberId" readonly
+                    formControlName="id">
             </div>
             <div class="mb-3 form-group">
                 <label class="form-label">First Name</label>
-                <input type="text" class="form-control" id="firstName" placeholder="Enter First Name" name="firstName" formControlName="firstName">
+                <input type="text" class="form-control" id="firstName" placeholder="Enter First Name" name="firstName"
+                    formControlName="firstName">
             </div>
             <div class="mb-3 form-group">
                 <label class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name" name="lastName" formControlName="lastName">
+                <input type="text" class="form-control" id="lastName" placeholder="Enter Last Name" name="lastName"
+                    formControlName="lastName">
             </div>
             <div class="col-12 mb-3 form-group">
                 <label class="form-label">Gender</label>
@@ -25,23 +28,116 @@
             </div>
             <div class="mb-3 form-group">
                 <label class="form-label">Address</label>
-                <input type="text" class="form-control" id="address" placeholder="Enter Address" name="address" formControlName="address">
+                <input type="text" class="form-control" id="address" placeholder="Enter Address" name="address"
+                    formControlName="address">
             </div>
             <div class="mb-3 form-group">
                 <label class="form-label">Contact Number</label>
-                <input type="text" class="form-control" id="contactNumber" placeholder="Enter Contact Number" name="contactNumber" formControlName="contactNumber">
+                <input type="text" class="form-control" id="contactNumber" placeholder="Enter Contact Number"
+                    name="contactNumber" formControlName="contactNumber">
+            </div>
+            <!-- <div class="mb-3 form-group">
+                <label class="form-label">Validity</label>
+                <input type="text" class="form-control" id="validity" placeholder="Enter Validity" name="validity" formControlName="validity">
+            </div> -->
+
+            <div class="row">
+                <div id="date" class="col-4 mb-3 form-group">
+                    <label class="form-label">Date</label>
+                    <select class="form-select" id="date" name="date" formControlName="date">
+                        <option value="">Select Date</option>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
+                    </select>
+                </div>
+                <div id="startDate" class="col-4 mb-3 form-group">
+                    <label class="form-label">Date</label>
+                    <select class="form-select" id="startMonth" name="startMonth" formControlName="startMonth">
+                        <option value="">Select Month</option>
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                    </select>
+                </div>
+                <div class="col-4 mb-3 form-group">
+                    <label class="form-label">End Month</label>
+                    <select class="form-select" id="endMonth" name="endMonth" formControlName="endMonth">
+                        <option value="">Select Month</option>
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                    </select>
+                </div>
             </div>
 
-            <button *ngIf="editMode" pButton pRipple icon="pi pi-check" class="btn btn-primary" type="submit">Save</button>
-            <button *ngIf="editMode" pButton pRipple icon="pi pi-trash" class="btn btn-danger" type="button" (click)="deleteMember()">Delete</button>
-            <button *ngIf="!editMode" pButton pRipple icon="" class="" type="button" (click)="edit()">Edit</button>
-            <button *ngIf="editMode" class="" type="button" (click)="cancel()">Cancel</button>
-            <button *ngIf="!editMode" class="" type="button" (click)="cancel()">Back</button>
+            <button *ngIf="editMode" class="custom-btn btn-5" type="submit"><span>Save</span></button>
+            <!-- <button *ngIf="editMode" pButton pRipple icon="pi pi-check" class="btn btn-primary"
+                type="submit">Save</button> -->
+            
+            <button *ngIf="editMode" class="custom-btn btn-5" type="button" (click)="deleteMember()"><span>Delete</span></button>
+            <!-- <button *ngIf="editMode" pButton pRipple icon="pi pi-trash" class="btn btn-danger" type="button"
+                (click)="deleteMember()">Delete</button> -->
+
+            <!-- <button *ngIf="!editMode" pButton pRipple icon="" class="" type="button" (click)="edit()">Edit</button> -->
+            <button *ngIf="!editMode" class="custom-btn btn-5" type="button" (click)="edit()"><span>Edit</span></button>
+
+            <button *ngIf="editMode" class="custom-btn btn-5" type="button" (click)="cancel()"><span>Cancel</span></button>
+            <!-- <button *ngIf="editMode" class="" type="button" (click)="cancel()">Cancel</button> -->
+
+            <button *ngIf="!editMode" class="custom-btn btn-5" type="button" (click)="cancel()"><span>Back</span></button>
+            <!-- <button *ngIf="!editMode" class="" type="button" (click)="cancel()">Back</button> -->
 
 
             <!-- <button *ngIf="editMode" class="btn btn-danger" type="button" (click)="cancel()">Cancel</button>
             <button *ngIf="!editMode" class="btn btn-danger" type="button" (click)="cancel()">Back</button> -->
-            
+
         </div>
     </form>
 </div>

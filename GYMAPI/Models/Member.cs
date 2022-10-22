@@ -1,4 +1,4 @@
-﻿namespace GYMAPI.Models
+namespace GYMAPI.Models
 {
     public class Member
     {
@@ -8,5 +8,8 @@
         public string Gender { get; set; }
         public string Address { get; set; }
         public string ContactNumber { get; set; }
-    }
+        public string Date { get; set; }
+        public string StartMonth { get; set; }
+        public string EndMonth { get; set; }
+  }
 }
