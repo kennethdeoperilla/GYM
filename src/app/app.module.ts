@@ -34,6 +34,7 @@ import { DatePipe } from '@angular/common';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
