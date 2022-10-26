@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Member } from 'src/app/models/member.model';
+import { ViewMemberDetails } from 'src/app/models/viewMemberDetails.model';
 import { MembersService } from 'src/app/service/members.service';
 
 @Component({
@@ -12,37 +13,37 @@ import { MembersService } from 'src/app/service/members.service';
 export class EditMemberComponent implements OnInit {
 
   form!: FormGroup;
+  // membershipStatusform!: FormGroup;
 
   editMode: boolean = false;
 
-  memberDetails: Member = {
+  memberDetails: ViewMemberDetails = {
     id: '',
+    uniqueId: '',
     firstName: '',
     lastName: '',
     gender: '',
     address: '',
     contactNumber: '',
-    validity: '',
-    date: '',
-    startMonth: '',
-    endMonth: '',
-    
+    membershipStatus: '',
+    startDate: ''
   }
 
-  get id() { return this.form.get('id'); }
+  get uniqueId() { return this.form.get('uniqueId'); }
   get firstName() { return this.form.get('firstName'); }
   get lastName() { return this.form.get('lastName'); }
   get gender() { return this.form.get('gender'); }
   get address() { return this.form.get('address'); }
   get contactNumber() { return this.form.get('contactNumber'); }
-  get validity() { return this.form.get('validity'); }
-  get date() { return this.form.get('date'); }
-  get startMonth() { return this.form.get('startDate'); }
-  get endMonth() { return this.form.get('endDate'); }
+  get membershipValidity() { return this.form.get('membershipValidity'); }
+  get startDate() { return this.form.get('startDate'); }
+
+  
+  // get membershipStatus() { return this.membershipStatusform.get('membershipStatus'); }
 
   constructor(
-    private route: ActivatedRoute, 
-    private memberService: MembersService, 
+    private route: ActivatedRoute,
+    private memberService: MembersService,
     private router: Router,
     public fb: FormBuilder
     ) { }
@@ -50,15 +51,18 @@ export class EditMemberComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe({
       next: (params) => {
+        console.log(params);
         const id = params.get('id');
 
         if (id) {
           this.memberService.getMember(id).subscribe({
-            next: (response) => {
+            next: (response: any) => {
+              console.log("Get member details:  ", response)
               this.memberDetails = response;
-              console.log("TOEDIT!");
-              console.log(response);
               this.form.patchValue(response);
+              this.startDate?.setValue(response.membershipStatus.startDate);
+              console.log("StartDate: ", this.startDate?.value)
+              this.membershipValidity?.setValue(response.membershipStatus.membershipValidity);
             }
           })
         }
@@ -73,16 +77,14 @@ export class EditMemberComponent implements OnInit {
   initializeForm(){
     if(!this.form){
       this.form = this.fb.group({
-        id: [''],
+        uniqueId: [''],
         firstName: [''],
         lastName: [''],
         gender: [''],
         address: [''],
         contactNumber: [''],
-        validity: [''],
-        date: [''],
-        startMonth: [''],
-        endMonth: [''],
+        membershipValidity: [''],
+        startDate: [''],
       })
     }
   }
@@ -107,19 +109,27 @@ export class EditMemberComponent implements OnInit {
     // call yung service
     //after ng call, invoke using subscribe method
     var record = this.form.getRawValue();
-    //console.log(record);
+    console.log("Nagsend na ng: ", record);
     this.memberService.updateMember(this.memberDetails.id, record).subscribe({
       next: (member)=> {
         //console.log(member);
         this.router.navigate(['members']);
+      },
+      error: (e) => {
+        console.log(e);
       }
     })
   }
 
   deleteMember(){
-    this.memberService.deleteMember(this.memberDetails.id, this.memberDetails).subscribe({
-      next:(member)=>
-      this.router.navigate(['members'])
+    this.memberService.deleteMember(this.memberDetails.id).subscribe({
+      next:(data)=>{
+        console.log(data);
+        this.router.navigate(['members'])
+      },
+      error: (e) => {
+        console.log(e);
+      }
     })
   }
 

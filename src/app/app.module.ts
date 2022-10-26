@@ -11,6 +11,10 @@ import { SearchfilterPipe } from './components/members/members-list/searchfilter
 import { GenderfilterPipe } from './components/members/members-list/genderfilter.pipe';
 import { EditMemberComponent } from './components/members/edit-member/edit-member.component';
 import { ViewMemberComponent } from './components/members/view-member/view-member.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DatePipe } from '@angular/common';
+
 
 @NgModule({
   declarations: [
@@ -28,9 +32,10 @@ import { ViewMemberComponent } from './components/members/view-member/view-membe
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,15 +1,27 @@
+using GYMAPI.Domain.Entities.Base;
+
 namespace GYMAPI.Models
 {
-    public class Member
+    public class Member : EntityBase
     {
-        public Guid Id { get; set; }
+        public Guid UniqueId { get; set; }
+
         public string FirstName { get; set; }
+
         public string LastName { get; set; }
+
         public string Gender { get; set; }
+
         public string Address { get; set; }
+
         public string ContactNumber { get; set; }
-        public string Date { get; set; }
-        public string StartMonth { get; set; }
-        public string EndMonth { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        public bool IsActive { get; set; }
+
+        public long MembershipStatusId { get; set; }
+
+        public virtual MembershipStatus MembershipStatus { get; set; }
   }
 }
