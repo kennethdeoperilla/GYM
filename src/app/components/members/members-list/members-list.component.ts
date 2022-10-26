@@ -25,19 +25,19 @@ export class MembersListComponent implements OnInit {
 
   ngOnInit(): void {
     this.membersService.getAllMembers().subscribe({
-      next: (members) => {
-        console.log(members)
-        // for(var i = 0; i++; i < members.length){
-        //   this.members[i].firstName = members[i].firstName;
-        //   this.members[i].lastName = members[i].lastName;
-        //   this.members[i].contactNumber = members[i].contactNumber;
+      next: (data :any) => {
+        console.log(data)
+        // for(var i = 0; i++; i < data.length){
+        //   this.members[i].firstName = data[i].firstName;
+        //   this.members[i].lastName = data[i].lastName;
+        //   this.members[i].contactNumber = data[i].contactNumber;
 
         //   // this.members[i].membershipStatus = true;
         // }
         
-        this.members = members;
-        console.log(this.members);
-        this.mem_Count = members.length;
+        this.members = data;
+        console.log("Members are: ",this.members);
+        this.mem_Count = data.length;
         
       },
     })

@@ -47,7 +47,7 @@
                 <td>{{ member.firstName }}</td>
                 <td>{{ member.lastName }}</td>
                 <td>{{ member.contactNumber }}</td>
-                <!-- <td>{{ member.membershipStatus }}</td> -->
+                <td>{{ member.membershipStatus.isMembershipActive === true ? "Active" : "Inactive" }}</td>
                 <!-- <td>{{ member. }}</td> -->
 
                 <button class="custom-btn btn-5" type="button" (click)="viewMember(member.id)"><span>
