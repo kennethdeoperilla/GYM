@@ -6,7 +6,7 @@ import { Member } from 'src/app/models/member.model';
 })
 export class SearchfilterPipe implements PipeTransform {
 
-  transform(members: Member[], searchValue: string): Member[] {
+  transform(members: any[], searchValue: string): any[] {
     if(!members || !searchValue){
       return members;
     }
