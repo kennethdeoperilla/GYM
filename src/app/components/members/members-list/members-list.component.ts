@@ -12,10 +12,12 @@ import { MembersService } from 'src/app/service/members.service';
 })
 export class MembersListComponent implements OnInit {
 
-  members: ViewMembers[] = [];
+  members: any[] = [];
   searchValue: string = '';
   genderValue: string = '';
   mem_Count: number = 0;
+  femaleCount: number = 0;
+  maleCount: number = 0;
   
   constructor(
     private membersService: MembersService,
@@ -25,21 +27,24 @@ export class MembersListComponent implements OnInit {
 
   ngOnInit(): void {
     this.membersService.getAllMembers().subscribe({
-      next: (data :any) => {
-        console.log(data)
-        // for(var i = 0; i++; i < data.length){
-        //   this.members[i].firstName = data[i].firstName;
-        //   this.members[i].lastName = data[i].lastName;
-        //   this.members[i].contactNumber = data[i].contactNumber;
-
-        //   // this.members[i].membershipStatus = true;
-        // }
+      next: (data) => {
+        // console.log(data)
         
         this.members = data;
-        console.log("Members are: ",this.members);
         this.mem_Count = data.length;
-        
+
+        data.forEach(element => {
+          if(element.gender === "Male"){
+            this.maleCount += 1;
+          }
+          else if(element.gender === "Female"){
+            this.femaleCount += 1;
+          }
+        });
       },
+      error: (e) => {
+        console.log(e);
+      }
     })
   }
 

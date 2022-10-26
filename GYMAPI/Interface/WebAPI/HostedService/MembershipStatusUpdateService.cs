@@ -1,4 +1,4 @@
-using GYMAPI.Core.Application.MembershipStatus.Commands.UpdateAllMembershipStatus;
+using GYMAPI.Core.Application.MembershipStatuses.Commands.UpdateAllMembershipStatus;
 using MediatR;
 
 namespace GYMAPI.Interface.HostedService

@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace GYMAPI.Core.Application.MembershipStatus.Commands.UpdateAllMembershipStatus
+namespace GYMAPI.Core.Application.MembershipStatuses.Commands.UpdateAllMembershipStatus
 {
   public class UpdateAllMembershipStatusCommand : IRequest<Unit>
   {

@@ -5,11 +5,10 @@ using GYMAPI.Application.Members.Models;
 using GYMAPI.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using GYMAPI.Core.Application.Members.Models;
 
-namespace GYMAPI.Application.Members.Queries.GetMember
+namespace GYMAPI.Application.Members.Queries.GetAllMembers
 {
-  public class GetMemberQuery : IRequest<MemberDto>
+  public class GetAllMembersQuery : IRequest<IEnumerable<MembersListDto>>
   {
     public long Id { get; set; }
   }

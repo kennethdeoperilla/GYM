@@ -1,13 +1,14 @@
+using GYMAPI.Core.Application._Interfaces;
 using GYMAPI.Data;
 using MediatR;
 
-namespace GYMAPI.Core.Application.MembershipStatus.Commands.UpdateAllMembershipStatus
+namespace GYMAPI.Core.Application.MembershipStatuses.Commands.UpdateAllMembershipStatus
 {
   public class UpdateAllMembershipStatusQueryHandler : IRequestHandler<UpdateAllMembershipStatusCommand, Unit>
   {
-    private readonly AppDbContext dbContext;
+    private readonly IAppDbContext dbContext;
 
-    public UpdateAllMembershipStatusQueryHandler(AppDbContext dbContext)
+    public UpdateAllMembershipStatusQueryHandler(IAppDbContext dbContext)
     {
       this.dbContext = dbContext;
     }
@@ -35,7 +36,7 @@ namespace GYMAPI.Core.Application.MembershipStatus.Commands.UpdateAllMembershipS
         }
       }
 
-      await this.dbContext.SaveChangesAsync();
+      await this.dbContext.SaveChangesAsync(cancellationToken);
 
       return Unit.Value;
     }

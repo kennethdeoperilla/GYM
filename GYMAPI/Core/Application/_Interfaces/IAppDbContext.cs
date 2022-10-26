@@ -8,6 +8,8 @@ namespace GYMAPI.Core.Application._Interfaces
   {
     DbSet<Member> Members { get; set; }
 
+    DbSet<MembershipStatus> MembershipStatuses { get; set; }
+
     /******************************************************************************/
 
     EntityEntry Remove(object entity);

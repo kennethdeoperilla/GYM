@@ -9,6 +9,8 @@ using GYMAPI.Core.Application._Interfaces;
 using GYMAPI.Data;
 using GYMAPI.Interface.HostedService;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -37,6 +39,13 @@ namespace GYMAPI
 
       services.AddControllers();
       services.AddCors();
+
+      services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,
+        options => Configuration.Bind("JwtSettings", options))
+    .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
+        options => Configuration.Bind("CookieSettings", options));
+
       services.AddEndpointsApiExplorer();
       services.AddSwaggerGen(c =>
       {
