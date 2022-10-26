@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Member } from 'src/app/models/member.model';
+import { ViewMembers } from 'src/app/models/viewMembers.model';
 import { MembersService } from 'src/app/service/members.service';
 
 @Component({
@@ -26,11 +27,18 @@ export class MembersListComponent implements OnInit {
     this.membersService.getAllMembers().subscribe({
       next: (members) => {
         console.log(members)
-        this.members = members;
-        //console.log(members.length)
-        this.mem_Count = members.length;
-        // console.log(this.memberCount())
+        // for(var i = 0; i++; i < members.length){
+        //   this.members[i].firstName = members[i].firstName;
+        //   this.members[i].lastName = members[i].lastName;
+        //   this.members[i].contactNumber = members[i].contactNumber;
 
+        //   // this.members[i].membershipStatus = true;
+        // }
+        
+        this.members = members;
+        console.log(this.members);
+        this.mem_Count = members.length;
+        
       },
     })
   }
