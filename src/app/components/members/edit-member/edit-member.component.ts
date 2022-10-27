@@ -113,8 +113,7 @@ export class EditMemberComponent implements OnInit {
     this.memberService.updateMember(this.memberDetails.id, record).subscribe({
       next: (member)=> {
         //console.log(member);
-        console.log("SUCCESS!!")
-        setTimeout(() => this.router.navigate(['members']), 1000);
+        this.router.navigate(['members']);
       },
       error: (e) => {
         console.log(e);
