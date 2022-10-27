@@ -6,7 +6,7 @@ import { Member } from 'src/app/models/member.model';
 })
 export class GenderfilterPipe implements PipeTransform {
 
-  transform(members: any[], genderValue: string): any[] {
+  transform(members: Member[], genderValue: string): Member[] {
     if(!members || !genderValue){
       return members;
     }
