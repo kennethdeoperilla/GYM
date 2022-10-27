@@ -12,7 +12,7 @@ import { MembersService } from 'src/app/service/members.service';
 })
 export class MembersListComponent implements OnInit {
 
-  members: Member[] = [];
+  members: ViewMembers[] = [];
   searchValue: string = '';
   genderValue: string = '';
   mem_Count: number = 0;
