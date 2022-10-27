@@ -17,7 +17,7 @@ namespace GYMAPI.Application.Members.Models
     {
       configuration.CreateMap<Member, MembersListDto>()
         .ForMember(s => s.MembershipStatus, mo => mo.MapFrom(so =>
-                      (so.MembershipStatus.IsMembershipActive != false ? "Active" : "Inactive")));
+                      (so.MembershipStatus.IsMembershipActive != false ? "Active" : "Expired")));
     }
   }
 }

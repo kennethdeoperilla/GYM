@@ -29,7 +29,7 @@ namespace GYMAPI.Core.Application.Members.Models
     public void CreateMappings(Profile configuration)
     {
       configuration.CreateMap<Member, MemberDto>()
-        .ForMember(x => x.MembershipStatus, mo => mo.MapFrom(s => s.MembershipStatus.IsMembershipActive != false ? "Active" : "Inactive"))
+        .ForMember(x => x.MembershipStatus, mo => mo.MapFrom(s => s.MembershipStatus.IsMembershipActive != false ? "Active" : "Expired"))
         .ForMember(x => x.StartDate, mo => mo.MapFrom(s => s.MembershipStatus.StartDate))
         .ForMember(x => x.MembershipValidity, mo => mo.MapFrom(s => s.MembershipStatus.MembershipValidity));
     }
