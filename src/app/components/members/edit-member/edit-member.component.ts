@@ -5,7 +5,6 @@ import { Member } from 'src/app/models/member.model';
 import { ViewMemberDetails } from 'src/app/models/viewMemberDetails.model';
 import { MembersService } from 'src/app/service/members.service';
 
-
 @Component({
   selector: 'app-edit-member',
   templateUrl: './edit-member.component.html',
@@ -17,7 +16,6 @@ export class EditMemberComponent implements OnInit {
   // membershipStatusform!: FormGroup;
 
   editMode: boolean = false;
-  memberId: any;
 
   memberDetails: ViewMemberDetails = {
     id: '',
@@ -39,7 +37,6 @@ export class EditMemberComponent implements OnInit {
   get contactNumber() { return this.form.get('contactNumber'); }
   get membershipValidity() { return this.form.get('membershipValidity'); }
   get startDate() { return this.form.get('startDate'); }
-  get membershipStatus() { return this.form.get('membershipStatus'); }
 
   
   // get membershipStatus() { return this.membershipStatusform.get('membershipStatus'); }
@@ -54,15 +51,18 @@ export class EditMemberComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe({
       next: (params) => {
-        // console.log(params);
+        console.log(params);
         const id = params.get('id');
 
         if (id) {
           this.memberService.getMember(id).subscribe({
             next: (response: any) => {
-              // console.log("Get member details:  ", response)
+              console.log("Get member details:  ", response)
               this.memberDetails = response;
               this.form.patchValue(response);
+              this.startDate?.setValue(response.membershipStatus.startDate);
+              console.log("StartDate: ", this.startDate?.value)
+              this.membershipValidity?.setValue(response.membershipStatus.membershipValidity);
             }
           })
         }
@@ -85,7 +85,6 @@ export class EditMemberComponent implements OnInit {
         contactNumber: [''],
         membershipValidity: [''],
         startDate: [''],
-        membershipStatus: [''],
       })
     }
   }
@@ -96,29 +95,25 @@ export class EditMemberComponent implements OnInit {
   }
 
   onViewMode(){
+    //console.log("VIEW mode...");
     this.editMode = false;
   }
 
   onEditMode(){
+    //console.log("Edit mode...");
     this.form.enable();
     this.editMode = true;
   }
 
   updateMember() {
+    // call yung service
+    //after ng call, invoke using subscribe method
     var record = this.form.getRawValue();
-    // console.log("Nagsend na ng: ", record);
-    this.memberService.updateMember({
-      id: this.memberDetails.id,
-      firstName: record.firstName,
-      lastName: record.lastName,
-      gender: record.gender,
-      address: record.address,
-      contactNumber: record.contactNumber,
-      membershipValidity: record.membershipValidity,
-      startDate: record.startDate,
-    }).subscribe({
+    console.log("Nagsend na ng: ", record);
+    this.memberService.updateMember(this.memberDetails.id, record).subscribe({
       next: (member)=> {
         //console.log(member);
+        console.log("SUCCESS!!")
         setTimeout(() => this.router.navigate(['members']), 1000);
       },
       error: (e) => {
@@ -130,8 +125,8 @@ export class EditMemberComponent implements OnInit {
   deleteMember(){
     this.memberService.deleteMember(this.memberDetails.id).subscribe({
       next:(data)=>{
-        // console.log(data);
-        setTimeout(() => this.router.navigate(['members']), 1000);
+        console.log(data);
+        this.router.navigate(['members'])
       },
       error: (e) => {
         console.log(e);
@@ -144,6 +139,7 @@ export class EditMemberComponent implements OnInit {
   }
 
   cancel(){
+    //console.log("Cancel!");
     this.router.navigateByUrl('members');
   }
 

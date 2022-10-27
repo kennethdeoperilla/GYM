@@ -33,12 +33,9 @@
             <div class="mb-3">
                 <label for="" class="form-label">Membership Validity --- Price</label>
                 <select type="number" class="form-select" id="membershipValidity" name="membershipValidity" [(ngModel)]="addMemberRequest.membershipValidity">
-                    <option value=1>1 month   --- 600 Php</option>
+                    <option value=1>1 month --- 600 Php</option>
                     <option value=2>2 months  --- 1,200 Php</option>
                     <option value=3>3 months  --- 1,800 Php</option>
-                    <option value=4>4 months  --- 2,400 Php</option>
-                    <option value=5>5 months  --- 3,000 Php</option>
-                    <option value=6>6 months  --- 3,600 Php</option>
                 </select>
             </div>
             <div class="mb-3">
@@ -54,8 +51,16 @@
                 </div>
             </div>
 
+            <!-- <div class="row">
+                <div class="col-xs-12 col-12 col-md-4 form-group mb-3">
+                  <input type="text"
+                         placeholder="Datepicker"
+                         class="form-control"
+                         bsDatepicker>
+                </div>
+              </div> -->
+
             <button class="custom-btn btn-5" type="submit"><span>Submit</span></button>
-            <button class="custom-btn btn-5" type="button" (click)="cancel()"><span>Cancel</span></button>
         </div>
     </form>
 </div>

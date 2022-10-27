@@ -32,25 +32,20 @@ export class AddMemberComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    // console.log("Datetime now: ", this.dateNow);
+    console.log("Datetime now: ", this.dateNow);
     this.addMemberRequest.startDate = this.dateNow;
   }
 
   addMember() {
-    // console.log("Add New Member: ", this.addMemberRequest);
+    console.log("Add New Member: ", this.addMemberRequest);
     this.memberService.addMember(this.addMemberRequest).subscribe({
       next: (member) => {
         // console.log(member);
-        setTimeout(() => this.router.navigate(['members']), 1000);
+        this.router.navigate(['members'])
       },
-      error: (e) =>{
-        console.log(e);
-      }
+      error: (members) =>
+        console.log(members)
     })
-  }
-
-  cancel(){
-    this.router.navigateByUrl('members');
   }
 
 }

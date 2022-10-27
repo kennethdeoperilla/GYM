@@ -1,10 +1,4 @@
-
-using GYMAPI.Application.Members.Queries.GetAllMembers;
-using GYMAPI.Application.Members.Queries.GetMember;
 using GYMAPI.Core.Application._Exceptions;
-using GYMAPI.Core.Application.Members.Commands.AddMember;
-using GYMAPI.Core.Application.Members.Commands.DeleteMember;
-using GYMAPI.Core.Application.Members.Commands.UpdateMember;
 using GYMAPI.Data;
 using GYMAPI.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -16,7 +10,7 @@ namespace GYMAPI.Interface.WebAPI.Controllers
 {
   [ApiController]
   [Route("api/[controller]")]
-  public class MembersController : ApiControllerBase
+  public class MembersController : Controller
   {
     private readonly AppDbContext dBContext;
 
@@ -26,153 +20,129 @@ namespace GYMAPI.Interface.WebAPI.Controllers
     }
 
 
-    [AllowAnonymous]
+
     [HttpGet("getAllMembers")]
-    public async Task<ActionResult> GetAllMembers()
+    public async Task<IActionResult> GetAllMembers()
     {
-      try
-      {
-        var data = await this.Mediator.Send(new GetAllMembersQuery { });
-
-        return new JsonResult(data);
-      }
-
-      catch (NotFoundException ex)
-      {
-        return BadRequest(ex.Message);
-      }
-      catch (Exception ex)
-      {
-        return BadRequest(ex.Message);
-      }
+      var members = await dBContext.Members
+        .Where(x => !x.IsDeleted)
+        .ToListAsync();
+      return Ok(members);
     }
 
-    [AllowAnonymous]
     [HttpPost("addMember")]
-    public async Task<IActionResult> AddMember([FromBody] AddMemberCommand command)
+    public async Task<IActionResult> AddMember([FromBody] AddMember memberRequest)
     {
-      try
+      if(this.dBContext.Members.Any(x => x.FirstName == memberRequest.FirstName.ToUpper().Trim()
+                                    && x.LastName == memberRequest.LastName.ToUpper().Trim()))
       {
-        var id = await this.Mediator.Send(command);
-
-        return new JsonResult(id);
-      }
-      catch(DuplicateException ex)
-      {
-        return BadRequest(ex.Message);
-      }
-      catch (Exception ex)
-      {
-        return BadRequest(ex.Message);
+        return BadRequest("Member with the same Full name already existed.");
       }
 
-      //if(this.dBContext.Members.Any(x => x.FirstName == memberRequest.FirstName.ToUpper().Trim()
-      //                              && x.LastName == memberRequest.LastName.ToUpper().Trim()))
-      //{
-      //  return BadRequest("Member with the same Full name already exists.");
-      //}
+      memberRequest.UniqueId = Guid.NewGuid();
 
-      //memberRequest.UniqueId = Guid.NewGuid();
+      var entity = new Member
+      {
+        UniqueId = memberRequest.UniqueId,
+        FirstName = memberRequest.FirstName,
+        LastName = memberRequest.LastName,
+        Address = memberRequest.Address,
+        Gender = memberRequest.Gender,
+        ContactNumber = memberRequest.ContactNumber,
 
-      //var entity = new Member
-      //{
-      //  UniqueId = memberRequest.UniqueId,
-      //  FirstName = memberRequest.FirstName,
-      //  LastName = memberRequest.LastName,
-      //  Address = memberRequest.Address,
-      //  Gender = memberRequest.Gender,
-      //  ContactNumber = memberRequest.ContactNumber,
+        IsActive = true,
+        IsDeleted = false,
+        MembershipStatus = new MembershipStatus
+        {
+          MembershipValidity = memberRequest.MembershipValidity.ToString(),
+          IsMembershipActive = true,
+          StartDate = memberRequest.StartDate,
+        }
+      };
 
-      //  IsActive = true,
-      //  IsDeleted = false,
-      //  MembershipStatus = new MembershipStatus
-      //  {
-      //    MembershipValidity = memberRequest.MembershipValidity.ToString(),
-      //    IsMembershipActive = true,
-      //    StartDate = memberRequest.StartDate,
-      //  }
-      //};
-
-      //await dBContext.Members.AddAsync(entity);
-      //await dBContext.SaveChangesAsync();
-      //return Ok(memberRequest);
+      await dBContext.Members.AddAsync(entity);
+      await dBContext.SaveChangesAsync();
+      return Ok(memberRequest);
     }
 
     [AllowAnonymous]
     [HttpGet("{id}")]
-    public async Task<ActionResult> GetMember([FromRoute] GetMemberQuery query)
+    //[Route("{id:Guid}")]
+    public async Task<IActionResult> GetMember([FromRoute] long id)
     {
-      try
-      {
-        var data = await this.Mediator.Send(query);
+      var member = await dBContext.Members.FindAsync(id);
 
-        return new JsonResult(data);
-      }
-      catch (AlreadyDeletedException ex)
+      if (member == null)
       {
-        return BadRequest(ex.Message);
+        return NotFound();
       }
-      catch (NotFoundException ex)
-      {
-        return BadRequest(ex.Message);
-      }
-      catch (Exception ex)
-      {
-        return BadRequest(ex.Message);
-      }
+      return Ok(member);
+
     }
 
-    [AllowAnonymous]
-    [HttpPost("updateMember")]
-    public async Task<ActionResult> UpdateMember([FromBody] UpdateMemberCommand command) 
+    //[HttpPut]
+    //[Route("{id:Guid}")]
+    [HttpPost("updateMember/{id}")]
+    public async Task<IActionResult> UpdateMember([FromRoute] long id, UpdateMemberDetails updateMemberRequest) //update from route, then yung object tapos kung ano ipapangalan
     {
-      try
-      {
-        var data = await this.Mediator.Send(command);
+      var member = await dBContext.Members.FindAsync(id);
 
-        return new JsonResult(data);
-      }
-      catch (DuplicateException ex)
+      if (member == null)
       {
-        return BadRequest(ex.Message);
+        return NotFound();
       }
-      catch (NotFoundException ex)
+
+      member.FirstName = updateMemberRequest.FirstName;
+      member.LastName = updateMemberRequest.LastName;
+      member.Gender = updateMemberRequest.Gender;
+      member.Address = updateMemberRequest.Address;
+      member.ContactNumber = updateMemberRequest.ContactNumber;
+      member.ModifiedOn = DateTime.Now;
+
+      member.MembershipStatus.MembershipValidity = updateMemberRequest.MembershipValidity;
+      member.MembershipStatus.StartDate = updateMemberRequest.StartDate;
+
+      var endDate = updateMemberRequest.StartDate.AddMonths(Convert.ToInt32(updateMemberRequest.MembershipValidity));
+
+      if(endDate >= DateTime.Now)
       {
-        return BadRequest(ex.Message);
+        member.MembershipStatus.IsMembershipActive = true;
       }
-      catch (Exception ex)
+      else if (endDate < DateTime.Now)
       {
-        return BadRequest(ex.Message);
+        member.MembershipStatus.IsMembershipActive = false;
       }
+
+      await dBContext.SaveChangesAsync();
+      return Ok(member);
+
     }
 
-    [AllowAnonymous]
     [HttpPost("deleteMember/{id}")]
-    public async Task<ActionResult> DeleteMember([FromRoute] DeleteMemberCommand command)
+    //[Route("{id:Guid}")]
+    public async Task<IActionResult> DeleteMember([FromRoute] long id)
     {
-      try
-      {
-        var unit = await this.Mediator.Send(command);
+      var member = await dBContext.Members.FindAsync(id);
 
-        return new JsonResult(unit);
-      }
-      catch (NotFoundException ex)
+      if (member == null)
       {
-        return BadRequest(ex.Message);
+        return NotFound();
       }
-      catch (AlreadyDeletedException ex)
+      if (member.IsDeleted)
       {
-        return BadRequest(ex.Message);
+        return BadRequest("Member already deleted.");
+      }
+      if (member.MembershipStatus.IsMembershipActive)
+      {
+        return BadRequest("Can not delete Member with active membership.");
       }
 
-      catch (InUseException ex)
-      {
-        return BadRequest(ex.Message);
-      }
-      catch (Exception ex)
-      {
-        return BadRequest(ex.Message);
-      }
+      member.IsDeleted = true;
+      await dBContext.SaveChangesAsync();
+      return Ok(member);
     }
+
+
   }
+
 }
