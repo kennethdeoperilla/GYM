@@ -1,6 +1,6 @@
 namespace GYMAPI.Models
 {
-  public class MembershipStatus
+  public class MembershipStatus 
   {
     public long Id { get; set; }
 

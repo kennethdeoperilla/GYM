@@ -28,10 +28,10 @@ export class MembersService {
     return this.http.get(this.baseApiUrl + '/api/members/' + id)
   }
 
-  updateMember(id: string, updateMemberRequest: Member):Observable<Member> { //kumukuha to ng 2 parameters. Una id, then pangalawa yung name
+  updateMember(updateMemberRequest: any) { //kumukuha to ng 2 parameters. Una id, then pangalawa yung name
     //then call na sa http
     //lagay URL sa put. Same lang ng URL sa get member. Put requries body din. Kaya kelangan maglagay, after nung destination URL
-    return this.http.post<Member>(this.baseApiUrl + '/api/members/updateMember/' + id, updateMemberRequest)
+    return this.http.post<Member>(this.baseApiUrl + '/api/members/updateMember/' , updateMemberRequest);
   }
 
   deleteMember(id: any){
