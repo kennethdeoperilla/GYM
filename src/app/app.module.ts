@@ -14,6 +14,7 @@ import { ViewMemberComponent } from './components/members/view-member/view-membe
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -34,7 +35,9 @@ import { DatePipe } from '@angular/common';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-right',
+    })
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

@@ -1,0 +1,11 @@
+export enum ApiCallStatusCodes {
+    OK = 200,
+    BADREQUEST = 400,
+    UNAUTHORIZED = 401,
+    FORBIDDEN = 403,
+    NOTFOUND = 404,
+    CONFLICT = 409,
+    GONE = 410,
+    UNSUPPORTEDMEDIATYPE = 415,
+    INTERNALSERVERERROR = 500
+}

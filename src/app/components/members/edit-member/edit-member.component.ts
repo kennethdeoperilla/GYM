@@ -1,6 +1,8 @@
+import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Member } from 'src/app/models/member.model';
 import { ViewMemberDetails } from 'src/app/models/viewMemberDetails.model';
 import { MembersService } from 'src/app/service/members.service';
@@ -18,6 +20,7 @@ export class EditMemberComponent implements OnInit {
 
   editMode: boolean = false;
   memberId: any;
+  date: any;
 
   memberDetails: ViewMemberDetails = {
     id: '',
@@ -41,14 +44,12 @@ export class EditMemberComponent implements OnInit {
   get startDate() { return this.form.get('startDate'); }
   get membershipStatus() { return this.form.get('membershipStatus'); }
 
-  
-  // get membershipStatus() { return this.membershipStatusform.get('membershipStatus'); }
-
   constructor(
     private route: ActivatedRoute,
     private memberService: MembersService,
     private router: Router,
-    public fb: FormBuilder
+    public fb: FormBuilder,
+    private toastr: ToastrService,
     ) { }
 
   ngOnInit(): void {
@@ -63,9 +64,13 @@ export class EditMemberComponent implements OnInit {
               // console.log("Get member details:  ", response)
               this.memberDetails = response;
               this.form.patchValue(response);
+              this.startDate?.patchValue(formatDate(response.startDate,'yyyy-MM-dd','en'));
             }
           })
         }
+      },
+      error: (e) => {
+        this.toastr.error(e.error);
       }
     })
 
@@ -122,6 +127,7 @@ export class EditMemberComponent implements OnInit {
         setTimeout(() => this.router.navigate(['members']), 1000);
       },
       error: (e) => {
+        this.toastr.error(e.error);
         console.log(e);
       }
     })
