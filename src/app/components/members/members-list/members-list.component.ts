@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Member } from 'src/app/models/member.model';
 import { ViewMembers } from 'src/app/models/viewMembers.model';
 import { MembersService } from 'src/app/service/members.service';
@@ -21,7 +22,8 @@ export class MembersListComponent implements OnInit {
   
   constructor(
     private membersService: MembersService,
-    public router: Router
+    public router: Router,
+    public toastr: ToastrService,
     ) {
   }
 
@@ -43,7 +45,8 @@ export class MembersListComponent implements OnInit {
         });
       },
       error: (e) => {
-        console.log(e);
+        this.toastr.error(e.error);
+        // console.log(e);
       }
     })
   }
