@@ -7,5 +7,6 @@ export interface ViewMemberDetails{
     address: string;
     contactNumber: string;
     membershipStatus: any;
+    membershipValidity: any;
     startDate: any;
 }

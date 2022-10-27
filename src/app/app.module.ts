@@ -36,7 +36,7 @@ import { ToastrModule } from 'ngx-toastr';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
-      positionClass: 'toast-top-right',
+      positionClass: 'toast-bottom-right',
     })
   ],
   providers: [DatePipe],
