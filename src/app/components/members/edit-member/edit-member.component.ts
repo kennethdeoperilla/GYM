@@ -21,6 +21,7 @@ export class EditMemberComponent implements OnInit {
   editMode: boolean = false;
   memberId: any;
   date: any;
+  studentRate:  boolean = false;
 
   memberDetails: ViewMemberDetails = {
     id: '',
@@ -32,7 +33,8 @@ export class EditMemberComponent implements OnInit {
     contactNumber: '',
     membershipValidity: '',
     membershipStatus: '',
-    startDate: ''
+    startDate: '',
+    isStudent: ''
   }
 
   get uniqueId() { return this.form.get('uniqueId'); }
@@ -44,6 +46,7 @@ export class EditMemberComponent implements OnInit {
   get membershipValidity() { return this.form.get('membershipValidity'); }
   get startDate() { return this.form.get('startDate'); }
   get membershipStatus() { return this.form.get('membershipStatus'); }
+  get isStudent() { return this.form.get('isStudent'); }
 
   constructor(
     private route: ActivatedRoute,
@@ -62,9 +65,27 @@ export class EditMemberComponent implements OnInit {
         if (id) {
           this.memberService.getMember(id).subscribe({
             next: (response: any) => {
-              // console.log("Get member details:  ", response)
+              console.log("Get member details:  ", response)
               this.memberDetails = response;
-              this.form.patchValue(response);
+              // this.form.patchValue(response);
+              this.uniqueId?.patchValue(response.uniqueId);
+              this.firstName?.patchValue(response.firstName);
+              this.lastName?.patchValue(response.lastName);
+              this.gender?.patchValue(response.gender);
+              this.address?.patchValue(response.address);
+              this.contactNumber?.patchValue(response.contactNumber);
+              this.isStudent?.patchValue(response.isStudent);
+              this.membershipStatus?.patchValue(response.membershipStatus);
+              if(response.isStudent === "True"){
+                this.studentRate = true;
+                console.log("Student!");
+              }
+              else{
+                this.studentRate = false;
+                console.log("Not student!");
+              }
+              this.membershipValidity?.patchValue(response.membershipValidity);
+
               this.startDate?.patchValue(formatDate(response.startDate,'yyyy-MM-dd','en'));
             }
           })
@@ -78,6 +99,19 @@ export class EditMemberComponent implements OnInit {
     this.onViewMode();
     this.initializeForm();
     this.initializeAll();
+
+    this.isStudent?.valueChanges.subscribe(value => {
+      if(value==="True"){
+        this.studentRate = true;
+        console.log(this.isStudent?.value)
+        console.log("Student!");
+      }
+      else if(value==="False"){
+        this.studentRate = false;
+        console.log(this.isStudent?.value)
+        console.log("Not student!");
+      }
+    })
   }
 
   initializeForm(){
@@ -89,6 +123,7 @@ export class EditMemberComponent implements OnInit {
         gender: ['',Validators.required],
         address: ['',Validators.required],
         contactNumber: ['',Validators.required],
+        isStudent: ['',Validators.required],
         membershipValidity: ['',Validators.required],
         startDate: ['',Validators.required],
         membershipStatus: ['',Validators.required],
@@ -115,11 +150,9 @@ export class EditMemberComponent implements OnInit {
 
       var record = this.form.getRawValue();
       console.log("Record : ", record);
-      console.log("MemberDetails : ", this.memberDetails);
+      // console.log("MemberDetails : ", this.memberDetails);
 
       var noChanges: any;
-      
-      console.log("No changes ",noChanges);
 
       if(
         this.memberDetails.firstName === record.firstName &&
@@ -128,6 +161,7 @@ export class EditMemberComponent implements OnInit {
         this.memberDetails.address === record.address &&
         this.memberDetails.contactNumber === record.contactNumber &&
         this.memberDetails.membershipValidity === record.membershipValidity &&
+        this.memberDetails.isStudent === record.isStudent &&
         formatDate(this.memberDetails.startDate,'yyyy-MM-dd','en') === formatDate(record.startDate,'yyyy-MM-dd','en')
         ){
           noChanges = true;
@@ -135,8 +169,6 @@ export class EditMemberComponent implements OnInit {
         else{
           noChanges = false;
         }
-        console.log("No changes ",noChanges);
-        console.log("First name: {0}, {1}", this.memberDetails.firstName, record.firstName);
 
       if(!noChanges){
         this.memberService.updateMember({
@@ -148,6 +180,7 @@ export class EditMemberComponent implements OnInit {
           contactNumber: record.contactNumber,
           membershipValidity: record.membershipValidity,
           startDate: record.startDate,
+          isStudent: record.isStudent,
         }).subscribe({
           next: (member)=> {
             //console.log(member);

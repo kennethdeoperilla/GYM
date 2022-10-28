@@ -8,6 +8,7 @@ import { Member } from 'src/app/models/member.model';
 import { MembersService } from 'src/app/service/members.service';
 
 
+
 @Component({
   selector: 'app-add-member',
   templateUrl: './add-member.component.html',
@@ -19,6 +20,8 @@ export class AddMemberComponent implements OnInit {
 
   formModel!: FormGroup;
 
+  studentRate: any;
+
   addMemberRequest: AddMember = { 
     firstName: '',
     lastName: '',
@@ -29,16 +32,14 @@ export class AddMemberComponent implements OnInit {
     startDate: '',
   }
 
-  myDate = new Date();
-  dateNow: any;
-
   get firstName() { return this.formModel.get('firstName'); }
   get lastName () { return this.formModel.get('lastName'); }
   get gender () { return this.formModel.get('gender'); }
   get address() { return this.formModel.get('address'); }
   get contactNumber() { return this.formModel.get('contactNumber'); }
+  get isStudent() { return this.formModel.get('isStudent'); }
   get membershipValidity() { return this.formModel.get('membershipValidity'); }
-  get registrationDate() { return this.formModel.get('registrationDate'); }
+  get startDate() { return this.formModel.get('startDate'); }
 
   constructor(
     private memberService: MembersService, 
@@ -47,14 +48,21 @@ export class AddMemberComponent implements OnInit {
     private toastr: ToastrService,
     public fb: FormBuilder,
     ) {
-    this.dateNow = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
    }
 
   ngOnInit(): void {
-    // console.log("Datetime now: ", this.dateNow);
-    this.addMemberRequest.startDate = this.dateNow;
-
     this.initializeForm();
+
+    this.isStudent?.valueChanges.subscribe(value => {
+      if(value==="true"){
+        this.studentRate = true;
+        console.log(this.isStudent?.value)
+      }
+      else if(value==="false"){
+        this.studentRate = false;
+        console.log(this.isStudent?.value)
+      }
+    })
   }
 
   initializeForm(){
@@ -65,31 +73,26 @@ export class AddMemberComponent implements OnInit {
         gender: ['',Validators.required],
         address: ['',Validators.required],
         contactNumber: ['',Validators.required],
+        isStudent : ['', Validators.required],
         membershipValidity: ['',Validators.required],
-        registrationDate: ['',Validators.required],
+        startDate: ['',Validators.required],
       })
-    }
-    else{
-      this.toastr.error("Please input in all fields.")
     }
   }
 
   addMember() {
     if(this.formModel.valid){
-      // console.log("Add New Member: ", this.addMemberRequest);
-
       const record = this.formModel.getRawValue();
-      // console.log(record);
-
+      console.log(record);
+      
       this.memberService.addMember(record).subscribe({
-        next: (member) => {
-          // console.log(member);
+        next: (data) => {
+          // console.log(data);
           this.toastr.success("Member is added successfully.");
           setTimeout(() => this.router.navigate(['members']), 1000);
         },
         error: (e) =>{
           this.toastr.error(e.error);
-          console.log(e);
         }
       })
     }
@@ -101,5 +104,4 @@ export class AddMemberComponent implements OnInit {
   cancel(){
     this.router.navigateByUrl('members');
   }
-
 }

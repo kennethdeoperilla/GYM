@@ -37,6 +37,7 @@ namespace GYMAPI.Core.Application.Members.Commands.UpdateMember
       entity.ContactNumber = request.ContactNumber;
       entity.MembershipStatus.MembershipValidity = request.MembershipValidity;
       entity.MembershipStatus.StartDate = request.StartDate;
+      entity.MembershipStatus.IsStudent = Convert.ToBoolean(request.IsStudent);
 
       var endDate = request.StartDate.AddMonths(Convert.ToInt32(request.MembershipValidity));
 

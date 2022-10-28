@@ -9,4 +9,5 @@ export interface ViewMemberDetails{
     membershipStatus: any;
     membershipValidity: any;
     startDate: any;
+    isStudent: any;
 }

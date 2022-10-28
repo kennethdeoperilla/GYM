@@ -31,6 +31,28 @@
                     name="contactNumber" formControlName="contactNumber" >
             </div>
             <div class="mb-3">
+                <label for="" class="form-label">Student?</label>
+                <select class="form-select" id="isStudent" name="isStudent" formControlName="isStudent">
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
+            </div>
+
+            <!-- Please do not make any mistakes on this area !!!!!!!!!!!!!!!!!!! -->
+            <div *ngIf="studentRate" class="mb-3">
+                <label for="" class="form-label">Membership Validity --- Price (Student Rate)</label>
+                <select type="number" class="form-select" id="membershipValidity" name="membershipValidity" formControlName="membershipValidity" >
+                    <option value=1>1 month   --- 550 Php</option>
+                    <option value=2>2 months  --- 1,100 Php</option>
+                    <option value=3>3 months  --- 1,650 Php</option>
+                    <option value=4>4 months  --- 2,200 Php</option>
+                    <option value=5>5 months  --- 2,750 Php</option>
+                    <option value=6>6 months  --- 3,300 Php</option>
+                </select>
+            </div>
+            
+            <!-- Please do not make any mistakes on this area !!!!!!!!!!!!!!!!!!! -->
+            <div *ngIf="!studentRate" class="mb-3">
                 <label for="" class="form-label">Membership Validity --- Price</label>
                 <select type="number" class="form-select" id="membershipValidity" name="membershipValidity" formControlName="membershipValidity" >
                     <option value=1>1 month   --- 600 Php</option>
@@ -49,7 +71,7 @@
                         placeholder="yyyy-mm-dd"
                         name="startDate"
                         [type]='"date"'
-                        formControlName="registrationDate"
+                        formControlName="startDate"
                         ngbDatepicker
                     />
                 </div>

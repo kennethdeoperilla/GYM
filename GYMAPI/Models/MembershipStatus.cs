@@ -10,6 +10,8 @@ namespace GYMAPI.Models
 
     public bool IsMembershipActive { get; set; }
 
+    public bool IsStudent { get; set; }
+
     //public virtual ICollection<Member> Members { get; set; }
 
     //public MembershipStatus()

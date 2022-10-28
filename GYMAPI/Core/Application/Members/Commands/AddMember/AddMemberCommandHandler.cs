@@ -45,6 +45,7 @@ namespace GYMAPI.Core.Application.Members.Commands.AddMember
           MembershipValidity = request.MembershipValidity.ToString(),
           IsMembershipActive = true,
           StartDate = request.StartDate,
+          IsStudent = Convert.ToBoolean(request.IsStudent)
         }
       };
 

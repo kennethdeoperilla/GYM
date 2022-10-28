@@ -16,6 +16,8 @@ namespace GYMAPI.Core.Application.Members.Commands.AddMember
 
     public string ContactNumber { get; set; }
 
+    public string IsStudent { get; set; }
+
     public long MembershipValidity { get; set; }
 
     public DateTime StartDate { get; set; }
